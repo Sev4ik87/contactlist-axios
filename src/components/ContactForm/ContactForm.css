@@ -1,0 +1,72 @@
+
+#contact-form {
+  border: black;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-container {
+  border: #1f201f;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+}
+
+.text-field {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+/* Стили для кнопки "X" */
+.clear {
+  padding: 8px;
+  border: 1px solid #1a1919;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.clear {
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: black solid;
+
+}
+
+.clear:hover {
+  background-color: #ccc;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btns button {
+  background-color: #1f201f;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btns button:hover {
+  opacity: 0.8;
+}

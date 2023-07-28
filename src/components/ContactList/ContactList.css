@@ -1,27 +1,16 @@
 
-.container {
-  max-width: 800px;
+.list-container {
+  max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
   border: black;
 }
 
-.header {
-  text-align: center;
-  font-size: 24px;
+.item-container {
   margin-bottom: 20px;
 }
 
-.main {
-  display: flex;
-  justify-content: space-between;
-}
-
-
-
-
 #new {
-  background-color: #4CAF50;
+  background-color: #171817;
   color: white;
   padding: 10px 20px;
   border: none;
