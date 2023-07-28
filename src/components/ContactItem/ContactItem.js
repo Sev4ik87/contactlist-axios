@@ -1,9 +1,16 @@
 import React, { useCallback } from 'react';
 import './ContactItem.css';
+import api from '../../contact-service'; 
 
 const ContactItem = ({ contact, onDelete, onEdit }) => {
   const onItemDelete = useCallback(() => {
-    onDelete(contact.id);
+    api.delete(`/${contact.id}`)
+      .then(() => {
+        onDelete(contact.id);
+      })
+      .catch((error) => {
+        console.error('Error deleting contact:', error);
+      });
   }, [contact.id, onDelete]);
 
   const onContactEdit = useCallback(() => {
