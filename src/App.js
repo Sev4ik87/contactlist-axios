@@ -10,6 +10,7 @@ const App = () => {
 
   function createEmptyContact() {
     return {
+      id: '',
       firstName: '',
       lastName: '',
       email: '',
