@@ -13,6 +13,13 @@
       "lastName": "Smith",
       "email": "jane.smith@example.com",
       "phone": "987-654-3210"
+    },
+    {
+      "id": 3,
+      "firstName": "seva",
+      "lastName": "krot",
+      "email": "se8v7@gmail.com",
+      "phone": "0965656677"
     }
   ]
 }

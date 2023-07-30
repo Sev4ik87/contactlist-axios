@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ContactForm.css';
 import api from '../../contact-service';
 
@@ -56,7 +56,7 @@ const ContactForm = ({ contactForEdit, onSubmit, onDelete }) => {
     }
   };
 
-  const onContactDelete = useCallback(() => {
+  const onContactDelete = () => {
     api.delete(`/${contact.id}`)
       .then(() => {
         onDelete(contact.id);
@@ -65,7 +65,7 @@ const ContactForm = ({ contactForEdit, onSubmit, onDelete }) => {
       .catch((error) => {
         console.error('Error deleting contact:', error);
       });
-  }, [contact.id, onDelete]);
+  };
 
   return (
     <form id='contact-form' onSubmit={onFormSubmit}>
