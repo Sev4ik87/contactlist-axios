@@ -1,16 +1,9 @@
 import React from 'react';
 import './ContactItem.css';
-import api from '../../contact-service'; 
 
 const ContactItem = ({ contact, onDelete, onEdit }) => {
   const onItemDelete = () => {
-    api.delete(`/${contact.id}`)
-      .then(() => {
-        onDelete(contact.id);
-      })
-      .catch((error) => {
-        console.error('Error deleting contact:', error);
-      });
+    onDelete(contact.id);
   };
 
   const onContactEdit = () => {

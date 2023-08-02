@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './ContactForm.css';
-import api from '../../contact-service';
 
 const ContactForm = ({ contactForEdit, onSubmit, onDelete }) => {
   const [contact, setContact] = useState({ ...contactForEdit });
@@ -36,35 +35,12 @@ const ContactForm = ({ contactForEdit, onSubmit, onDelete }) => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    if (!contact.id) {
-      api.post('/', contact)
-        .then(({ data }) => {
-          contact.id = data.id;
-          onSubmit({ ...contact });
-        })
-        .catch((error) => {
-          console.error('Error creating contact:', error);
-        });
-    } else {
-      api.put(`/${contact.id}`, contact)
-        .then(() => { 
-          onSubmit({ ...contact });
-        })
-        .catch((error) => {
-          console.error('Error updating contact:', error);
-        });
-    }
+    onSubmit({ ...contact });
   };
 
   const onContactDelete = () => {
-    api.delete(`/${contact.id}`)
-      .then(() => {
-        onDelete(contact.id);
-        setContact(createEmptyContact());
-      })
-      .catch((error) => {
-        console.error('Error deleting contact:', error);
-      });
+    onDelete(contact.id);
+    setContact(createEmptyContact());
   };
 
   return (

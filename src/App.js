@@ -1,7 +1,7 @@
+import api from './contact-service';
 import React, { useState, useEffect } from 'react';
 import ContactList from './components/ContactList/ContactList';
 import ContactForm from './components/ContactForm/ContactForm';
-import api from './contact-service';
 import './App.css';
 
 const App = () => {
@@ -10,7 +10,6 @@ const App = () => {
 
   function createEmptyContact() {
     return {
-      id: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -18,21 +17,32 @@ const App = () => {
     };
   }
 
-  useEffect(() => {
-    api.get('/').then(({ data }) => {
-      data ? setContacts(data) : setContacts([]);
-    });
-  }, []);
+  const saveState = (contacts) => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  };
 
+  
+  useEffect(() => {
+		api.get('/').then(({ data }) => {
+			data ? setContacts(data) : setContacts([]);
+		});
+	}, []);
   const deleteContact = (id) => {
+    setContacts((prevContacts) => {
+      const updatedContacts = prevContacts.filter((contact) => contact.id !== id);
+      saveState(updatedContacts);
+      return updatedContacts;
+    });
+  
     api.delete(`/${id}`)
-      .then(() => {
-        setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
+      .then(response => {
       })
-      .catch((error) => {
-        console.error('Error deleting contact:', error);
+      .catch(error => {
       });
   };
+  
+
+ 
 
   const addNewContact = () => {
     setContactForEdit(createEmptyContact());
@@ -42,30 +52,41 @@ const App = () => {
     setContactForEdit(contact);
   };
 
+  
+    
+
   const createContact = (contact) => {
-    api.post('/', contact)
-      .then(({ data }) => {
-        contact.id = data.id;
-        setContacts((prevContacts) => [...prevContacts, contact]);
-        setContactForEdit(createEmptyContact());
+    const newContact = { ...contact, id: Date.now() }; // Создаем новый объект контакта с добавленным полем id
+  
+    setContacts((prevContacts) => [...prevContacts, newContact]);
+    setContactForEdit(createEmptyContact());
+  
+    api.post('/', newContact)
+      .then(response => {
       })
-      .catch((error) => {
-        console.error('Error creating contact:', error);
+      .catch(error => {
       });
   };
+  
+
+  
 
   const updateContact = (contact) => {
+    setContacts((prevContacts) => {
+      const updatedContacts = prevContacts.map((item) => (item.id === contact.id ? contact : item));
+      saveState(updatedContacts);
+      return updatedContacts;
+    });
+  
     api.put(`/${contact.id}`, contact)
-      .then(() => {
-        setContacts((prevContacts) =>
-          prevContacts.map((item) => (item.id === contact.id ? contact : item))
-        );
-        setContactForEdit(contact);
+      .then(response => {
       })
-      .catch((error) => {
-        console.error('Error updating contact:', error);
+      .catch(error => {
       });
+  
+    setContactForEdit(contact);
   };
+  
 
   const saveContact = (contact) => {
     if (!contact.id) {
